@@ -12,6 +12,11 @@ module.exports = (_, argv) => {
             path: path.resolve(__dirname, 'dist'),
             filename: '[name].[chunkhash].js'
         },
+        resolve: {
+            alias: {
+                Components: path.resolve(__dirname, "..", "src", "components")
+            }
+        },
         module: {
             rules: [{
                     test: /\.pug$/,
