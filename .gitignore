@@ -2,3 +2,4 @@
 _design
 .idea/
 node_modules
+dist
