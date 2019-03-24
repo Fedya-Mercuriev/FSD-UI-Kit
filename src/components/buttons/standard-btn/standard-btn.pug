@@ -1,0 +1,18 @@
+mixin standard-btn(options) 
+    - var additionalClass = null;
+    - var btnColor = 'green';
+
+    case options.type 
+        when 'volume-btn'
+            - additionalClass = 'volume-btn'
+        when 'contained-btn'
+            - additionalClass = 'contained-btn'
+        default
+            - additionalClass = 'outlined-btn'
+
+    if options.color === 'red'
+        - btnColor += red;
+
+    - additionalClass += ` ${additionalClass}--${btnColor}`;
+
+    button.standard-btn(type="button" class=additionalClass)= (options.text !== 'Button') ? options.text : 'Button'
