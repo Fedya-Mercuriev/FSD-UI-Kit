@@ -1,6 +1,12 @@
 mixin standard-btn(options) 
-    - var additionalClass = null;
+    //- @options.size - размер кнопки (big, small)
+    //- @options.type - разновидность кнопки (outlined, contained, volume)
+    //- @options.color - цвет кнопки (green, orange)
+    //- @options.text - текст кнопки
+    - var additionalClass = '';
+    - var baseClass = 'standard-btn';
     - var btnColor = 'green';
+    - var classList = '';
 
     case options.type 
         when 'volume-btn'
@@ -10,9 +16,12 @@ mixin standard-btn(options)
         default
             - additionalClass = 'outlined-btn'
 
-    if options.color === 'red'
-        - btnColor += red;
+    if options.color === 'orange'
+        - btnColor = options.color;
 
-    - additionalClass += ` ${additionalClass}--${btnColor}`;
-
-    button.standard-btn(type="button" class=additionalClass)= (options.text !== 'Button') ? options.text : 'Button'
+    - classList += `${baseClass} ${baseClass}--${options.size} ${additionalClass} ${additionalClass}--${btnColor}`;
+    if additionalClass === 'contained-btn'
+        button(type="button" class=classList)= (options.text !== 'Button') ? options.text : 'Button'
+            i(class=`${additionalClass}__ripple-shape`)
+    else
+        button(type="button" class=classList)= (options.text !== 'Button') ? options.text : 'Button'
