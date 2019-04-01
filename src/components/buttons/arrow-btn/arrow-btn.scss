@@ -1,0 +1,79 @@
+.arrow-btn {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    @include reset-pad-marg();
+    border: 0;
+    border-radius: 50%;
+    appearance: none;
+    cursor: pointer;
+    svg {
+        width: 17px;
+        height: 21px;
+    }
+    @include interact-btn-style();
+}
+
+.chevron-left {
+    fill: #ffffff;
+}
+
+.chevron-right {
+    @extend .chevron-left;
+}
+
+.outlined-arrow-btn {
+    border-width: 3px;
+    border-style: solid;
+    background-color: #ffffff;
+    &--green {
+        border-color: $green-color;
+        svg {
+            fill: $green-color;
+        }
+        &:hover {
+            border-color: darken($green-color, 10%);
+            svg {
+                fill: darken($green-color, 10%);
+            }
+        }
+    }
+    &--orange {
+        border-color: $orange-color;
+        svg {
+            fill: $orange-color;
+        }
+        &:hover {
+            border-color: darken($orange-color, 10%);
+            svg {
+                fill: darken($orange-color, 10%);
+            }
+        }
+    }
+}
+
+.contained-arrow-btn {
+    &--green {
+        background-color: $green-color;
+        &:hover {
+            background-color: darken($green-color, 10%);
+        }
+    }
+    &--orange {
+        background-color: $orange-color;
+        &:hover {
+            background-color: darken($orange-color, 10%);
+        }
+    }
+}
+
+.transparent-arrow-btn {
+    background-color: #e5e5e5;
+    &:hover {
+        background-color: darken(#e5e5e5, 10%);
+    }
+}
