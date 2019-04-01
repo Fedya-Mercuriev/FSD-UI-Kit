@@ -3,23 +3,26 @@ mixin arrow-btn(options)
     //- @options.type - тип кнопки (outlined, contained, transparent)
     //- @options.color - цвет кнопки (green, orange)
     - var baseClass = 'arrow-btn';
+    - var typeClass = '';
     - var directionClassname = `${baseClass}--left`;
     - var classList = '';
-
-    //- Добавим класс для определения цвета
-    if options.color === 'orange'
-        - classList += `${baseClass} ${baseClass}--${options.color}`
-    else 
-        - classList += `${baseClass} ${baseClass}--green`
 
     //- Добавим класс для определения типа кнопки
     case options.type 
         when 'contained'
-            - classList += ` ${baseClass}--contained`
+            - typeClass += ` contained-arrow-btn`;
         when 'transparent'
-            - classList += ` ${baseClass}--transparent`
+            - typeClass += ` transparent-arrow-btn`;
         default
-            - classList += ` ${baseClass}--outlined`
+            - typeClass += ` outlined-arrow-btn`;
+    - classList += baseClass;
+    - classList += typeClass;
+
+    //- Добавим класс для определения цвета
+    if options.color === 'orange'
+        - classList += ` ${typeClass}--${options.color}`
+    else 
+        - classList += ` ${typeClass}--green`
 
     if options.direction === 'right'
         button(class=`${classList} ${baseClass}--${options.direction}` type="button")
