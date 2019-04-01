@@ -1,0 +1,89 @@
+.standard-btn {
+    transform: translateY(0);
+    border: 0;
+    border-radius: 3px;
+    font-family: 'Lato Black', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    background-color: #ffffff;
+    outline-color: transparent;
+    outline-style: none;
+    transition: transform 0.1s;
+    appearance: none;
+    cursor: pointer;
+    &:active {
+        transform: translateY(1px);
+    }
+    &--big {
+        padding: 12px 34px 12px 32px;
+        font-size: 12px;
+    }
+    &--small {
+        padding: 9px 18px 8px 19px;
+        font-size: 10px;
+    }
+}
+
+.outlined-btn {
+    background-color: $colourful-btn-text-color;
+    &--green {
+        border: 1px solid $green-color;
+        color: $green-color;
+        box-shadow: 0px 3px 0px 0px $green-color;
+    }
+    &--orange {
+        border: 1px solid $orange-color;
+        color: $orange-color;
+        box-shadow: 0px 3px 0px 0px $orange-color;
+    }
+}
+
+.volume-btn {
+    color: $colourful-btn-text-color;
+    &--green {
+        background-color: $green-color;
+        box-shadow: 0px 3px 0px 0px darken($green-color, 10%);
+    }
+    &--orange {
+        background-color: $orange-color;
+        box-shadow: 0px 3px 0px 0px darken($orange-color, 10%);
+    }
+}
+
+.contained-btn {
+    position: relative;
+    overflow: hidden;
+    color: $colourful-btn-text-color;
+    &--green {
+        background-color: $green-color;
+    }
+    &--orange {
+        background-color: $orange-color;
+    }
+    &__ripple-shape {
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: block;
+        width: 51px;
+        height: 51px;
+        transform-origin: center;
+        border-radius: 50%;
+        background-color: #ffffff;
+        opacity: 0;
+        &--active {
+            animation: 'ripple-effect' 0.2s cubic-bezier(.05, 1.09, .97, 1), 10;
+        }
+    }
+}
+
+@keyframes ripple-effect {
+    from {
+        transform: scale(0);
+        opacity: 1;
+    }
+    to {
+        transform: scale(1);
+        opacity: 0;
+    }
+}
