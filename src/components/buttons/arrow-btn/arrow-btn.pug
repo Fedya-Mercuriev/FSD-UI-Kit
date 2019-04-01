@@ -1,0 +1,29 @@
+mixin arrow-btn(options)
+    //- @options.direction - направление стрелки (left, right)
+    //- @options.type - тип кнопки (outlined, contained, transparent)
+    //- @options.color - цвет кнопки (green, orange)
+    - var baseClass = 'arrow-btn';
+    - var directionClassname = `${baseClass}--left`;
+    - var classList = '';
+
+    //- Добавим класс для определения цвета
+    if options.color === 'orange'
+        - classList += `${baseClass} ${baseClass}--${options.color}`
+    else 
+        - classList += `${baseClass} ${baseClass}--green`
+
+    //- Добавим класс для определения типа кнопки
+    case options.type 
+        when 'contained'
+            - classList += ` ${baseClass}--contained`
+        when 'transparent'
+            - classList += ` ${baseClass}--transparent`
+        default
+            - classList += ` ${baseClass}--outlined`
+
+    if options.direction === 'right'
+        button(class=`${classList} ${baseClass}--${options.direction}` type="button")
+            include ./../../../img/chevron-right.svg
+    else
+        button(class=`${classList} ${baseClass}--left` type="button")
+            include ./../../../img/chevron-left.svg
