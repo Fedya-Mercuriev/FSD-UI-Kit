@@ -1,0 +1,55 @@
+mixin chart(options)
+    //- @options.data - данные для отображения на чарте (число/массив чисел)
+    //- @options.color - цвет чарта (green/orange)
+    //- Если data является массивом, тогда используем
+    //- одинарный чарт, иначе – другой
+    .chart-wrapper
+        - var CHART_RADIUS = 44;
+        - var perimeter = null;
+        - var amount = null;
+        - var baseClass = null;
+        - var colorClass = '';
+        - var classList = '';
+        - var rotationVal = null;
+        
+        if typeof options.data !== 'object'
+            - perimeter = 2 * (Math.PI * CHART_RADIUS);
+            //- Этот блок выполняется если в качестве данных было передано всего одно число
+            - amount = perimeter - perimeter * options.data / 100;
+            - baseClass = 'chart';
+            //- Установим класс для цвета чарта
+            if options.color === 'orange'
+                - colorClass = `${baseClass}--orange`;
+            else 
+                - colorClass = `${baseClass}--green`;
+            - classList += `${baseClass} ${colorClass}`;
+            //- Отрисовываем чарт
+            span.value-display= options.data
+            svg(class=classList width="100%" height="100%" viewBox="0 0 100 100")
+                circle(class=`${baseClass}__stroke` cx="50" cy="50" r=`${CHART_RADIUS}` fill="transparent" stroke-width="5" stroke-dasharray=perimeter stroke-dashoffset=amount)
+        else
+            //- Этот блок выполняется если был передан массив данных 
+            - var previousRotation = 0;
+            - CHART_RADIUS = 44;
+            - perimeter = 2 * (Math.PI * CHART_RADIUS);
+            - baseClass = 'donut-chart';
+            span(class="value-display value-display--small value-display--hidden")= "10"
+            svg(class=baseClass width="100%" height="100%" viewBox="-4 -4 107 107")
+                - var colorsArr = [{'name': 'dark-grey', 'color': '#747474'}, {'name': 'orange', 'color': '#e75735'}, {'name': 'green', 'color': '#4eb7a8'}, {'name': 'light-grey', 'color': '#e5e5e5'}];
+                each item, index in options.data
+                    - amount = perimeter - perimeter * item / 100;
+                    if index === 0
+                        - rotationVal = (0 * 360 / 100) - 90;
+                        - previousRotation = rotationVal;
+                    else
+                        - rotationVal = (options.data[index - 1] * 360 / 100) + previousRotation;
+                        - previousRotation = rotationVal;
+                    if colorsArr[index] === undefined
+                        //- Этот блок выполняется если цвета в массиве colorsArr закончились - идем по кругу
+                        circle(class=`${baseClass}__stroke ${baseClass}__stroke--${colorsArr[index - colorsArr.length].name}` 
+                        data-value=item cx="50" cy="50" r=`${CHART_RADIUS}` fill="transparent" stroke-width="17" stroke-dasharray=perimeter 
+                        stroke-dashoffset=amount transform=`rotate(${rotationVal} 50 50)`)
+                    else       
+                        circle(class=`${baseClass}__stroke ${baseClass}__stroke--${colorsArr[index].name}` 
+                        data-value=item cx="50" cy="50" r=`${CHART_RADIUS}` fill="transparent" stroke-width="17" 
+                        stroke-dasharray=perimeter stroke-dashoffset=amount transform=`rotate(${rotationVal} 50 50)`)
