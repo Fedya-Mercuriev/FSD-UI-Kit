@@ -26,6 +26,23 @@
     }
 }
 
+.donut-chart-display-value {
+    position: absolute;
+    top: 49%;
+    transform: translateY(-50%);
+    display: block;
+    width: 100%;
+    text-align: center;
+    font-size: 30px;
+    font-family: 'Lato Light', sans-serif;
+    letter-spacing: -2px;
+    color: #9d9d9d;
+    pointer-events: none;
+    &--hidden {
+        visibility: hidden;
+    }
+}
+
 .chart {
     &__stroke {
         transform-origin: center;
@@ -49,6 +66,7 @@
         position: relative;
         overflow: hidden;
         transition: opacity 0.3s;
+        pointer-events: visibleStroke;
         cursor: pointer;
         &--green {
             stroke: $green-color;
