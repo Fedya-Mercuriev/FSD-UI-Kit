@@ -1,4 +1,5 @@
 'use strict';
+const webpack = require('webpack');
 const path = require('path');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -21,8 +22,14 @@ module.exports = (_, argv) => {
         module: {
             rules: [{
                     test: /\.tsx?$/,
-                    loader: 'ts-loader',
-                    exclude: /node_modules/
+                    exclude: /node_modules/,
+                    use: [{
+                            loader: 'babel-loader'
+                        },
+                        {
+                            loader: 'ts-loader'
+                        }
+                    ]
                 },
                 {
                     test: /\.pug$/,
@@ -85,7 +92,11 @@ module.exports = (_, argv) => {
                 },
                 template: 'src/index.pug',
             }),
-            new WebpackMd5Hash()
+            new WebpackMd5Hash(),
+            new webpack.ProvidePlugin({
+                $: "jquery",
+                jQuery: "jquery"
+            })
         ]
     };
 
