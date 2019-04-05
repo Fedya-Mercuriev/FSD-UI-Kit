@@ -7,18 +7,24 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = (_, argv) => {
     const config = {
-        entry: './src/app.js',
+        entry: './src/app.ts',
         output: {
             path: path.resolve(__dirname, 'dist'),
             filename: '[name].[chunkhash].js'
         },
         resolve: {
+            extensions: ['.tsx', '.ts', '.js'],
             alias: {
                 Components: path.resolve(__dirname, "src/components")
             }
         },
         module: {
             rules: [{
+                    test: /\.tsx?$/,
+                    loader: 'ts-loader',
+                    exclude: /node_modules/
+                },
+                {
                     test: /\.pug$/,
                     use: ['html-loader?attrs=false', 'pug-html-loader']
                 },
