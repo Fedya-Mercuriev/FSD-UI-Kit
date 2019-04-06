@@ -44,8 +44,8 @@ mixin slider(options)
                 i(class=`slider-track-dummy slider-track-dummy--${elemColor}`)
                 i(class=`${filledTrackBaseClass} ${filledTrackBaseClass}--${elemColor}`)
                 div(class=`${sliderControlBaseClass} ${sliderControlBaseClass}--${elemColor}`)
-                    div(class='slider-indicator-wrapper')
-                        span.slider-indicator= "0"
+                    div(class='slider-indicator-wrapper slider-indicator-wrapper--hidden')
+                        span.slider-indicator= options.minVal
 
 
 
