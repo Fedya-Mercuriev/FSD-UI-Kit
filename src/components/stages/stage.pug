@@ -14,15 +14,25 @@ mixin stage(options)
         .stages-backbone
             i(class=`stages-backbone__filled-track stages-backbone__filled-track--${colorClass}`)
         ul(class=stagesListbaseClass)
+            - var labelBaseClass = `${stagesListbaseClass}__label`;
+            - labelClassList = `${labelBaseClass}`;
             //- Если вместе булевого значения был передан массив с этапам, 
-            //- парсим его и строим деерево элементов на его основе
+            //- парсим его и строим дерево элементов на его основе
             if options.sequence.length
-                each stage in options.sequence 
-                    li(class=`${stagesListbaseClass}__label ${stagesListbaseClass}__label--${colorClass}`)= stage
+                each stage, index in options.sequence 
+                    - labelClassList += ` ${labelBaseClass}--${colorClass}`;
+                    if index === 0
+                        li(class=`${labelClassList} ${labelBaseClass}--active`)= stage
+                    else
+                        li(class=labelClassList)= stage
             else
                 - var value = options.start;
+                - labelClassList += ` ${labelBaseClass}--${colorClass}`;
                 - for (var counter = 0; counter < options.stages; counter++)
-                    li(class=`${stagesListbaseClass}__label ${stagesListbaseClass}__label--${colorClass}`)= value++
+                    if counter === 0
+                        li(class=`${labelClassList} ${labelBaseClass}--active`)= value++
+                    else
+                        li(class=labelClassList)= value++
 
 
 

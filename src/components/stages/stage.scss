@@ -1,0 +1,106 @@
+.stages-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.stages-backbone {
+    position: absolute;
+    top: 50%;
+    left: 1px;
+    transform: translateY(-50%);
+    width: 99%;
+    height: 5px;
+    background-color: $track-bg;
+    &__filled-track {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        transform-origin: left;
+        transform: translateY(-50%) scaleX(0);
+        display: block;
+        width: 1%;
+        max-width: 90%;
+        height: 5px;
+        &--orange {
+            background-color: $orange-color;
+        }
+        &--green {
+            background-color: $green-color;
+        }
+    }
+}
+
+.stages-labels {
+    $labelBaseClass: 'stages-labels__label';
+    @include reset-pad-marg();
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    list-style-type: none;
+    &__label {
+        position: relative;
+        z-index: 10;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        width: 29px;
+        height: 29px;
+        border-radius: 50%;
+        font-family: 'Lato Black', sans-serif;
+        font-size: 14px;
+        color: $dark-text-color;
+        background-color: $track-bg;
+        transition: all 0.3s;
+        cursor: pointer;
+        &:hover {
+            color: darken($dark-text-color, 10%);
+            &::before {
+                transform: translate(-50%) scale(20);
+                opacity: 0.5;
+            }
+        }
+        &:active {
+            color: #ffffff;
+            &::before {
+                transform: translate(-50%) scale(30);
+                opacity: 1;
+            }
+        }
+        &::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            z-index: -1;
+            transform-origin: center;
+            transform: translate(-50%) scale(0);
+            width: 1px;
+            height: 1px;
+            border-radius: 50%;
+            background-color: $track-bg;
+            opacity: 0;
+            transition: all 0.3s;
+        }
+        &--orange {
+            &::before {
+                background-color: $orange-color;
+            }
+        }
+        &--green {
+            &::before {
+                background-color: $green-color;
+            }
+        }
+        &--active {
+            color: #ffffff;
+            &::before {
+                transform: translate(-50%) scale(40);
+                opacity: 1;
+            }
+        }
+    }
+}
