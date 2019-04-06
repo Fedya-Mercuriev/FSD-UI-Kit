@@ -1,10 +1,14 @@
 .range-slider {
+    min-width: 300px;
+    max-width: 500px;
     &__slider-content {
         position: relative;
     }
 }
 
 .scaleless-slider {
+    min-width: 300px;
+    max-width: 500px;
     &__slider-content {
         position: relative;
     }
@@ -48,9 +52,9 @@
     left: 4px;
     z-index: 10;
     transform-origin: left;
-    transform: translateY(-50%) scaleX(20);
+    transform: translateY(-50%) scaleX(0);
     display: block;
-    width: 10px;
+    width: 1%;
     height: 9px;
     transition: transform 0.1s;
     will-change: transform;
@@ -65,9 +69,10 @@
 .slider-control {
     position: relative;
     top: 0;
-    left: 0;
+    left: -15px;
     z-index: 20;
-    transform: translateX(30px) translateY(0);
+    transform-origin: center;
+    transform: translateX(0) translateY(0);
     width: 30px;
     height: 30px;
     border-radius: 50%;
