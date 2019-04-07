@@ -1,22 +1,20 @@
 const scalelessSlider: JQuery<HTMLElement> = $('.scaleless-slider');
 const rangeSlider: JQuery<HTMLElement> = $('.range-slider');
-let sliderIsActive : boolean = false;
 
 scalelessSlider.on('mouseenter', (e) => {
     // Показывает ярлычок
-    controlIndicator($(e.currentTarget));
+    controlIndicator($(e.currentTarget), 'show');
 })
 
 scalelessSlider.on('mouseleave', (e) => {
     // прячет ярлычок
-    controlIndicator($(e.currentTarget));
+    controlIndicator($(e.currentTarget), 'hide');
 })
 
 scalelessSlider.on('mousedown', (e) => {
     // Обрабатывает действия с слайдером
     // Переменная sliderIsActive нужна для того, чтобы ярлычок не 
     // реагировал на действия извне (не внутри слайдера)
-    sliderIsActive = true;
     // Обработчик mouseleave убирается, чтоб во время прокрутки слайдера
     // ярлычок не прятался
     $(e.currentTarget).off('mouseleave');
@@ -31,18 +29,11 @@ rangeSlider.on('mousedown', (e) => {
 $(document).on('mouseup', (e) => {
     console.log('Отпустили кнопку мыши');
     $(document).off('mousemove');
-    console.log(e.target);
     // Этот блок срабатывает только когда пользователь навел курсор на слайдер
     // и подвигал его
-    if (sliderIsActive) {
-        if (!$(e.target).closest(scalelessSlider).length) {
-            controlIndicator(scalelessSlider);
-        }
-        scalelessSlider.on('mouseleave', (e) => {
-            controlIndicator($(e.currentTarget));
-        })
-        sliderIsActive = false;
-    }
+    scalelessSlider.on('mouseleave', (e) => {
+        controlIndicator($(e.currentTarget), 'hide');
+    })
 })
 
 function controlSlider(e: any, hasIndicator: boolean = false) : void {
@@ -80,10 +71,14 @@ function controlSlider(e: any, hasIndicator: boolean = false) : void {
     }
 }
 
-function controlIndicator(parent: JQuery<HTMLElement>) : void {
+function controlIndicator(parent: JQuery<HTMLElement>, action: string) : void {
     const indicatorWrapper: JQuery<HTMLElement> = parent.find('.slider-indicator-wrapper');
-    const classToRemove: string = `${indicatorWrapper.attr('class').split(' ')[0]}--hidden`
-    indicatorWrapper.toggleClass(classToRemove);
+    const classThatHidesIndicator: string = `${indicatorWrapper.attr('class').split(' ')[0]}--hidden`
+    if (action === 'hide') {
+        indicatorWrapper.addClass(classThatHidesIndicator);
+    } else {
+        indicatorWrapper.removeClass(classThatHidesIndicator);
+    }
 }
 
 function moveElemHor (event: JQuery.Event, start: number, finish: number, controlElem: JQuery<HTMLElement>): number {
