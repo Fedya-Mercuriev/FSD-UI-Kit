@@ -1,4 +1,5 @@
 'use strict';
+const webpack = require('webpack');
 const path = require('path');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -7,18 +8,30 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = (_, argv) => {
     const config = {
-        entry: './src/app.js',
+        entry: './src/app.ts',
         output: {
             path: path.resolve(__dirname, 'dist'),
             filename: '[name].[chunkhash].js'
         },
         resolve: {
+            extensions: ['.tsx', '.ts', '.js'],
             alias: {
                 Components: path.resolve(__dirname, "src/components")
             }
         },
         module: {
             rules: [{
+                    test: /\.tsx?$/,
+                    exclude: /node_modules/,
+                    use: [{
+                            loader: 'babel-loader'
+                        },
+                        {
+                            loader: 'ts-loader'
+                        }
+                    ]
+                },
+                {
                     test: /\.pug$/,
                     use: ['html-loader?attrs=false', 'pug-html-loader']
                 },
@@ -79,7 +92,11 @@ module.exports = (_, argv) => {
                 },
                 template: 'src/index.pug',
             }),
-            new WebpackMd5Hash()
+            new WebpackMd5Hash(),
+            new webpack.ProvidePlugin({
+                $: "jquery",
+                jQuery: "jquery"
+            })
         ]
     };
 

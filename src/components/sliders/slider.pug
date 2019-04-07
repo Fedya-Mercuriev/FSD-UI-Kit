@@ -1,0 +1,51 @@
+mixin slider(options)
+    //- Свойства options
+    //- @minVal - минимальное значение для слайдера (Number)
+    //- @maxVal - максимальнео значение для слайдера (Number)
+    //- @step - размер шага для промежуточных значений (Number)
+    //- @color - цвет слайдера (String)
+    - var elemColor = '';
+    - var filledTrackBaseClass = 'slider-filled-track';
+    - var sliderControlBaseClass = 'slider-control'; 
+    if options.step
+        //- Этот блок выполняется если были переданы промежуточные значения
+        - var baseClass = 'range-slider';
+        //- Сперва сформируем класс для цветового оформления
+        if options.color === 'green'
+            - elemColor = 'green';
+        else
+            - elemColor = 'orange';
+        //- Теперь зададим все необходимые данные 
+        div(class=baseClass data-min=options.minVal data-max=options.maxVal data-step=options.step)
+            div(class=`${baseClass}__slider-content`)
+                i.slider-track
+                //- Эта заглушка нужна, чтоб не было щелей между треком 
+                //- и индикатором заполнения слайдера
+                i(class=`slider-track-dummy slider-track-dummy--${elemColor}`)
+                i(class=`${filledTrackBaseClass} ${filledTrackBaseClass}--${elemColor}`)
+                div(class=`${sliderControlBaseClass} ${sliderControlBaseClass}--${elemColor}`)
+            .slider-scale
+                - var numCounter = options.minVal;
+                while numCounter <= options.maxVal
+                    span.slider-scale__scale-unit=numCounter
+                    - numCounter += options.step
+
+    else
+        //- В этом блоке отрисовывается слайдер без шкалы
+        - var baseClass = 'scaleless-slider';
+        - var colorClass = '';
+        if options.color === 'green'
+            - elemColor = 'green';
+        else
+            - elemColor = 'orange';
+        div(class=baseClass data-min=options.minVal data-max=options.maxVal)
+            div(class=`${baseClass}__slider-content`)
+                i.slider-track
+                i(class=`slider-track-dummy slider-track-dummy--${elemColor}`)
+                i(class=`${filledTrackBaseClass} ${filledTrackBaseClass}--${elemColor}`)
+                div(class=`${sliderControlBaseClass} ${sliderControlBaseClass}--${elemColor}`)
+                    div(class='slider-indicator-wrapper slider-indicator-wrapper--hidden')
+                        span.slider-indicator= options.minVal
+
+
+

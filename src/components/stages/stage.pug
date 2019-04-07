@@ -1,0 +1,41 @@
+mixin stage(options)
+    //- Свойства options: 
+    //- @sequence - являются ли этапы последовательностью (true или массив с желаемыми этапами)
+    //- @start - (не обязательное свойство) стартовое значение (указывается, если sequence = true)
+    //- @stages - (не обязательное свойство) количество этапов (Number)
+    //- @color - цвет блока
+    - var colorClass = '';
+    - var stagesListbaseClass = 'stages-labels';
+    if options.color === 'green'
+        - colorClass = 'green';
+    else
+        - colorClass = 'orange';
+    .stages-wrapper
+        .stages-backbone
+            i(class=`stages-backbone__filled-track stages-backbone__filled-track--${colorClass}`)
+        ul(class=stagesListbaseClass)
+            - var labelBaseClass = `${stagesListbaseClass}__label`;
+            - labelClassList = `${labelBaseClass}`;
+            //- Если вместе булевого значения был передан массив с этапам, 
+            //- парсим его и строим дерево элементов на его основе
+            if options.sequence.length
+                each stage, index in options.sequence 
+                    - labelClassList += ` ${labelBaseClass}--${colorClass}`;
+                    if index === 0
+                        li(class=`${labelClassList} ${labelBaseClass}--active`)= stage
+                    else
+                        li(class=labelClassList)= stage
+            else
+                - var value = options.start;
+                - labelClassList += ` ${labelBaseClass}--${colorClass}`;
+                - for (var counter = 0; counter < options.stages; counter++)
+                    if counter === 0
+                        li(class=`${labelClassList} ${labelBaseClass}--active`)= value++
+                    else
+                        li(class=labelClassList)= value++
+
+
+
+
+
+
