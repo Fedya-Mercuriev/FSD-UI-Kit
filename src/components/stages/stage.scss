@@ -11,9 +11,10 @@
     width: 99%;
     height: 5px;
     background-color: $track-bg;
+    pointer-events: none;
     &__filled-track {
         position: absolute;
-        top: 50%;
+        top: 16%;
         left: 0;
         transform-origin: left;
         transform: translateY(-50%) scaleX(0);
@@ -21,6 +22,7 @@
         width: 1%;
         max-width: 90%;
         height: 5px;
+        transition: transform 0.2s;
         &--orange {
             background-color: $orange-color;
         }
@@ -55,6 +57,7 @@
         color: $dark-text-color;
         background-color: $track-bg;
         transition: all 0.3s;
+        user-select: none;
         cursor: pointer;
         &:hover {
             color: darken($dark-text-color, 10%);
@@ -100,6 +103,13 @@
             &::before {
                 transform: translate(-50%) scale(40);
                 opacity: 1;
+            }
+            &:hover {
+                &::before {
+                    transform: translate(-50%) scale(100);
+                    color: #ffffff;
+                    opacity: 1;
+                }
             }
         }
     }
