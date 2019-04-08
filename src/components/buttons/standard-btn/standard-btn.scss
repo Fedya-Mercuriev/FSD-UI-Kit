@@ -1,10 +1,14 @@
 .standard-btn {
     transform: translateY(0);
+    box-sizing: border-box;
+    width: 100%;
     border: 0;
     border-radius: 3px;
     font-family: 'Lato Black', sans-serif;
     text-transform: uppercase;
+    line-height: 100%;
     letter-spacing: 0.6px;
+    text-align: center;
     background-color: #ffffff;
     outline-color: transparent;
     outline-style: none;
@@ -14,14 +18,14 @@
     &:active {
         transform: translateY(1px);
     }
-    &--big {
-        padding: 12px 34px 12px 32px;
-        font-size: 12px;
-    }
-    &--small {
-        padding: 9px 18px 8px 19px;
-        font-size: 10px;
-    }
+    // &--big {
+    //     padding: 12px 34px 12px 32px;
+    //     font-size: 12px;
+    // }
+    // &--small {
+    //     padding: 6px 0 6px 0;
+    //     font-size: 10px;
+    // }
 }
 
 .outlined-btn {
@@ -36,6 +40,14 @@
         color: $orange-color;
         box-shadow: 0px 3px 0px 0px $orange-color;
     }
+    &--big {
+        padding: 9px 0 9px 0;
+        font-size: 12px;
+    }
+    &--small {
+        padding: 5px 0 4px 0;
+        font-size: 10px;
+    }
 }
 
 .volume-btn {
@@ -48,6 +60,14 @@
         background-color: $orange-color;
         box-shadow: 0px 3px 0px 0px darken($orange-color, 10%);
     }
+    &--big {
+        padding: 10px 0 10px 0;
+        font-size: 12px;
+    }
+    &--small {
+        padding: 6px 0 6px 0;
+        font-size: 10px;
+    }
 }
 
 .contained-btn {
@@ -59,6 +79,14 @@
     }
     &--orange {
         background-color: $orange-color;
+    }
+    &--big {
+        padding: 12px 34px 12px 32px;
+        font-size: 12px;
+    }
+    &--small {
+        padding: 6px 0 6px 0;
+        font-size: 10px;
     }
     &__ripple-shape {
         position: absolute;

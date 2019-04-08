@@ -19,7 +19,7 @@ mixin standard-btn(options)
     if options.color === 'orange'
         - btnColor = options.color;
 
-    - classList += `${baseClass} ${baseClass}--${options.size} ${additionalClass} ${additionalClass}--${btnColor}`;
+    - classList += `${baseClass} ${baseClass} ${additionalClass} ${additionalClass}--${options.size} ${additionalClass}--${btnColor}`;
     if additionalClass === 'contained-btn'
         button(type="button" class=classList)= (options.text !== 'Button') ? options.text : 'Button'
             i(class=`${additionalClass}__ripple-shape`)
