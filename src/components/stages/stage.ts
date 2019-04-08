@@ -1,12 +1,15 @@
+import { throttled } from './../../throttle';
 const stagesBlock = $('.stages-wrapper');
-const stagesList = stagesBlock.find('stages-labels');
+const stagesList = stagesBlock.find('.stages-labels');
+let clickedLabelNum = null;
+const handleFilledTrack = throttled(100, calculateTrackWidth);
 
-stagesBlock.on('click', (e) => {
+stagesBlock.on('click', (e) : void => {
     const stages = stagesList.children().length;
     if (e.target.tagName === 'LI') {
         const clickedItemParent = $(e.target).parent();
         const buttonsNum = clickedItemParent.children().length;
-        const clickedLabelNum = clickedItemParent.children().index(e.target);
+        clickedLabelNum = clickedItemParent.children().index(e.target);
         const classNameToManage = `${e.target.classList[0]}--active`;
         const filledTrack = $(e.currentTarget).find('.stages-backbone__filled-track');
         // Закрасим кнопки, которые предшествуют выбранному этапу
@@ -22,15 +25,19 @@ stagesBlock.on('click', (e) => {
             }
         })
         // Закрасим полоску, соединяющую кнопки до нужной кнопки
-        filledTrack.css('transform', `scaleX(${calculateTrackWidth(buttonsNum, clickedLabelNum)})`);
+        filledTrack.css('transform', `scaleX(${handleFilledTrack(filledTrack.parent(), stagesList, clickedLabelNum)})`);
     }
 })
 
-function calculateTrackWidth(buttonsNum: number, clickedBtnNum: number): number {
-    const measureUnit = 100 / (buttonsNum - 1);
-    let result = measureUnit * clickedBtnNum;
-    if (result === 0) {
-        return result;
-    }
-    return result - 2;
+$( window ).on('resize', (e) : void => {
+    const filledTrack = stagesBlock.find('.stages-backbone__filled-track');
+    filledTrack.css('transform', `scaleX(${handleFilledTrack(filledTrack.parent(), stagesList, clickedLabelNum)})`);
+})
+
+function calculateTrackWidth(container: JQuery<HTMLElement>, buttonsList: JQuery<HTMLElement>, clickedBtnNum: number): number {
+    const buttonsNum = buttonsList.children().length;
+    const singleButtonWidth = buttonsList.children().eq(0).width();
+    const measureUnit = Math.round(container.width() / buttonsNum);
+    const clickedButtonPosition = buttonsList.children().eq(clickedBtnNum).position();
+    return clickedButtonPosition.left + (singleButtonWidth / 2);
 }
