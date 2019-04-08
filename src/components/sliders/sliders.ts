@@ -1,17 +1,18 @@
 const scalelessSlider: JQuery<HTMLElement> = $('.scaleless-slider');
 const rangeSlider: JQuery<HTMLElement> = $('.range-slider');
+let sliderIsActive: boolean = false;
 
-scalelessSlider.on('mouseenter', (e) => {
+scalelessSlider.on('mouseenter touchstart', (e) => {
     // Показывает ярлычок
     controlIndicator($(e.currentTarget), 'show');
 })
 
-scalelessSlider.on('mouseleave', (e) => {
+scalelessSlider.on('mouseleave touchend', (e) => {
     // прячет ярлычок
     controlIndicator($(e.currentTarget), 'hide');
 })
 
-scalelessSlider.on('mousedown', (e) => {
+scalelessSlider.on('mousedown touchstart', (e) => {
     // Обрабатывает действия с слайдером
     // Переменная sliderIsActive нужна для того, чтобы ярлычок не 
     // реагировал на действия извне (не внутри слайдера)
@@ -21,22 +22,26 @@ scalelessSlider.on('mousedown', (e) => {
     controlSlider(e, true);
 });
 
-rangeSlider.on('mousedown', (e) => {
+rangeSlider.on('mousedown touchstart', (e) => {
     // Обрабатывает действия с слайдером
     controlSlider(e);
 })
 
-$(document).on('mouseup', (e) => {
+$('body').on('mouseup touchend', (e) => {
     console.log('Отпустили кнопку мыши');
-    $(document).off('mousemove');
+    $('body').off('mousemove touchmove');
     // Этот блок срабатывает только когда пользователь навел курсор на слайдер
     // и подвигал его
-    scalelessSlider.on('mouseleave', (e) => {
+    scalelessSlider.on('mouseleave touchend', (e) => {
         controlIndicator($(e.currentTarget), 'hide');
     })
+    if (!e.target.closest(`.${scalelessSlider[0].classList[0]}`)) {
+        controlIndicator($(e.currentTarget), 'hide');
+    }
 })
 
 function controlSlider(e: any, hasIndicator: boolean = false) : void {
+    e.preventDefault();
     // Эта функция собирает в себе другие подфункции и занимается
     // управлением (в общем) слайдером
     const container: HTMLElement = e.currentTarget;
@@ -48,7 +53,8 @@ function controlSlider(e: any, hasIndicator: boolean = false) : void {
         const finishPosition: number = startPosition + e.currentTarget.clientWidth;
         console.log('Нажали на ползунок слайдера и держим его');
         // Этот обработчик добавляется только при зажатии левой кнопки мыши
-        $(document).on('mousemove', (e) => {
+        $('body').on('mousemove touchmove', (e) => {
+
             // Пользунок двигается только внутри трека, а потому устанавливаем ограничения
             // на перемещения и другие вычисления
             if (e.pageX >= startPosition && e.pageX <= finishPosition) {
