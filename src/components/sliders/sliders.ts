@@ -57,7 +57,7 @@ function controlSlider(e: any, hasIndicator: boolean = false) : void {
                 // Рассчитывает позицию и добавляет ее ползунку и закрашенной
                 // полоске, идущей за ним
                 const currPosition: number = moveElemHor(e, startPosition, finishPosition, sliderControl);
-                const filledTrackWidth: number = calculateFilledTrackWidth(finishPosition - startPosition, currPosition);
+                const filledTrackWidth: number = currPosition;
                 filledTrack.css('transform', `translateY(-50%) scaleX(${filledTrackWidth})`);
                 // Функция обрабатывает оба случая; 
                 // блок кода ниже выполняется, если у слайдера есть ярлычок
@@ -89,11 +89,6 @@ function moveElemHor (event: JQuery.Event, start: number, finish: number, contro
 
 function calculatePosition(start: number, curr: number) : number {
     return curr - Math.round(start);
-}
-
-function calculateFilledTrackWidth(containerWidth: number, currentPosition: number) : number  {
-    const measureUnit: number = containerWidth / 100;
-    return Math.round(currentPosition / measureUnit);
 }
 
 function calculateSliderValue(min: number, max: number, containerWidth: number, currentPosition: number): number {
