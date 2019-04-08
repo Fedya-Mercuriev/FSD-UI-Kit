@@ -14,18 +14,20 @@
     outline-style: none;
     cursor: pointer;
     svg {
-        width: 17px;
-        height: 21px;
+        width: 22px;
+        height: 24px;
     }
     @include interact-btn-style();
 }
 
 .chevron-left {
+    margin-right: 2px;
     fill: #ffffff;
 }
 
 .chevron-right {
     @extend .chevron-left;
+    margin-right: -2px;
 }
 
 .outlined-arrow-btn {
