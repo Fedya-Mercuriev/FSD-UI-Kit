@@ -5,12 +5,15 @@
 }
 
 .value-display {
+    $min-font-size: 25px;
+    $max-font-size: 40px;
     position: absolute;
     top: 49%;
     transform: translateY(-50%);
     display: block;
     width: 100%;
     text-align: center;
+    @include fluid-type(map-deep-get($devices, 'mobile-s'), map-deep-get($devices, 'tablet'), $min-font-size, $max-font-size);
     font-size: 40px;
     font-family: 'Lato Light', sans-serif;
     letter-spacing: -2px;
@@ -44,6 +47,7 @@
     &__stroke {
         transform-origin: center;
         transform: rotate(-90deg);
+        -webkit-tap-highlight-color: transparent;
     }
     &--orange {
         circle {
@@ -58,6 +62,7 @@
 }
 
 .donut-chart {
+    -webkit-tap-highlight-color: transparent;
     &__stroke {
         $base-class: 'donut-chart__stroke';
         position: relative;
