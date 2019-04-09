@@ -1,0 +1,38 @@
+mixin text-input(options) 
+    //- Свойства options
+    //- @type - тип поля ввода (String)
+    //- @data - какого типа данные будут вводиться (имя, почта...) (String)
+    //- @customLabels - собственный текст для ярлычков(не обязательно) (Object)
+    //- Свойства customNotifications
+        //- @correct - текст для ярлычка, если информация верна(не обязательно) (String)
+        //- @error - текст для ярлычка, если информация не верна(не обязательно) (String)
+    //- @customPlaceholder - собственный текст для плейсхолдера(не обязательно) (String)
+    - var inputBaseClass = "text-input";
+    - var dataNameForPlaceHolder = options.data.charAt(0).toUpperCase() + options.data.slice(1);
+    - var placeholdertext = `Your ${dataNameForPlaceHolder}`;
+    //- Эта переменная хранит классы для ярлычка
+    - var notificationClassList = `${inputBaseClass}-notification`
+    //- Эта переменная хранит шаблоны тексов для ярылчка
+    - var notificationsError = "Error";
+    - var notificationsCorrect = "Thanks!";
+    if options.customNotifications
+        //- Так-как ни одно из свойств customNotifications не является обязательным, 
+        //- будем искать каждое и присваивать его
+        if options.customNotifications.correct
+            - notificationsCorrect = options.customNotifications.correct;
+        if options.customNotifications.error
+            - notificationsError = options.customNotifications.error;
+    //- Если был передан кастомный плейсхолдер - присвоим его вместо шаблона плейсхолдера
+    if options.customPlaceholder
+        - placeholdertext = options.customPlaceholder;
+    if options.type === "text"
+        div(class=`${inputBaseClass}-wrapper`)
+            input(class=inputBaseClass type=options.type name=options.data value="" placeholder=placeholdertext autocomplete="off" required)
+            div(class=`${notificationClassList}-wrapper`)
+                span(class=`${notificationClassList}-wrapper__${notificationClassList}` data-correct=notificationsCorrect data-error=notificationsError)
+    else
+        - inputBaseClass = "textarea";
+        div(class=`${inputBaseClass}-wrapper`)
+            textarea(class=inputBaseClass rows=3 cols=20 name=options.data value="" placeholder=placeholdertext autocomplete="off")
+
+
