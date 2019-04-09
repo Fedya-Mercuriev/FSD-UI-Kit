@@ -14,6 +14,7 @@
     outline-style: none;
     transition: transform 0.1s;
     appearance: none;
+    -webkit-tap-highlight-color: transparent;
     cursor: pointer;
     &:active {
         transform: translateY(1px);
