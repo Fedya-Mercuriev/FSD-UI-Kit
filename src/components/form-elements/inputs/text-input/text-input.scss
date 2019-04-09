@@ -30,37 +30,74 @@
     letter-spacing: 0.14px;
     color: $dark-text-color;
     background-color: $light-grey-color;
+    transition: background-color 0.2s;
+    &:hover {
+        background-color: darken($light-grey-color, 7%);
+    }
+    &:focus {
+        color: darken($dark-text-color, 10%);
+        background-color: darken($light-grey-color, 7%);
+    }
 }
 
 .text-input-notification-wrapper {
     position: absolute;
     top: 0;
     right: 0;
-    transform: translateX(0);
-    box-sizing: border-box;
+    transform: translateX(-7px);
     display: block;
-    width: 27.526132404181185%;
+    width: 25.087108013937282%;
     height: 28px;
-    padding-left: 7px;
-    font-size: 10px;
-    font-family: 'Lato Black', sans-serif;
-    color: #ffffff;
-    transition: transform cubic-bezier(.32, .95, .39, .99);
-    &__text-input-notification {
-        display: block;
+    opacity: 0;
+    transition: transform 0.3s cubic-bezier(.32, .95, .39, .99), opacity 0.3s cubic-bezier(.32, .95, .39, .99);
+    &--visible {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    &__notification-body {
+        position: absolute;
+        top: 0;
+        right: 0;
+        z-index: -1;
         width: 100%;
         height: 100%;
         border-radius: 4px;
-        color: #ffffff;
-        text-align: center;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
+        &::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: -2px;
+            transform: translateY(-50%) rotate(45deg);
+            display: block;
+            width: 5px;
+            height: 5px;
+        }
         &--correct {
             background-color: $green-color;
+            &::before {
+                background-color: $green-color;
+            }
         }
         &--error {
             background-color: $orange-color;
+            &::before {
+                background-color: $orange-color;
+            }
         }
+    }
+    &__notification-text {
+        box-sizing: border-box;
+        display: block;
+        width: 100%;
+        height: 100%;
+        padding-left: 2px;
+        text-align: center;
+        font-size: 10px;
+        line-height: 28px;
+        font-family: 'Lato Black', sans-serif;
+        color: #ffffff;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
     }
 }
 
@@ -79,4 +116,13 @@
     letter-spacing: 0.14px;
     color: $dark-text-color;
     background-color: $light-grey-color;
+    transition: background-color 0.2s;
+    resize: none;
+    &:hover {
+        background-color: darken($light-grey-color, 7%);
+    }
+    &:focus {
+        color: darken($dark-text-color, 10%);
+        background-color: darken($light-grey-color, 7%);
+    }
 }

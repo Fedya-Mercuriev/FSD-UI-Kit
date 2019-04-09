@@ -29,7 +29,8 @@ mixin text-input(options)
         div(class=`${inputBaseClass}-wrapper`)
             input(class=inputBaseClass type=options.type name=options.data value="" placeholder=placeholdertext autocomplete="off" required)
             div(class=`${notificationClassList}-wrapper`)
-                span(class=`${notificationClassList}-wrapper__${notificationClassList}` data-correct=notificationsCorrect data-error=notificationsError)
+                div(class=`${notificationClassList}-wrapper__notification-body ${notificationClassList}-wrapper__notification-body--error`)
+                span(class=`${notificationClassList}-wrapper__notification-text` data-correct=notificationsCorrect data-error=notificationsError)
     else
         - inputBaseClass = "textarea";
         div(class=`${inputBaseClass}-wrapper`)
