@@ -1,12 +1,12 @@
 .text-input-wrapper {
     position: relative;
     box-sizing: border-box;
-    min-width: 300px;
+    // min-width: 300px;
     width: 100%;
-    padding-right: 27.526132404181185%;
     margin-bottom: 12px;
     @include media(map-deep-get($devices, 'tablet')) {
         min-width: 287px;
+        padding-right: 27.526132404181185%;
     }
 }
 
@@ -29,6 +29,8 @@
     font-size: 14px;
     letter-spacing: 0.14px;
     color: $dark-text-color;
+    text-overflow: ellipsis;
+    overflow: hidden;
     background-color: $light-grey-color;
     transition: background-color 0.2s;
     &:hover {
@@ -63,14 +65,17 @@
         height: 100%;
         border-radius: 4px;
         &::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: -2px;
-            transform: translateY(-50%) rotate(45deg);
-            display: block;
-            width: 5px;
-            height: 5px;
+            display: none;
+            @include media(map-deep-get($devices, 'tablet')) {
+                content: '';
+                position: absolute;
+                top: 50%;
+                left: -2px;
+                transform: translateY(-50%) rotate(45deg);
+                display: block;
+                width: 5px;
+                height: 5px;
+            }
         }
         &--correct {
             background-color: $green-color;
