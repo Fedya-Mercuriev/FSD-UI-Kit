@@ -20,24 +20,24 @@ scalelessSlider.on('mousedown touchstart', (e) => {
     // ярлычок не прятался
     $(e.currentTarget).off('mouseleave');
     controlSlider(e, true);
+
+    $('body').on('mouseup touchend', (e) => {
+        console.log('Отпустили кнопку мыши');
+        $('body').off('mousemove touchmove');
+        // Этот блок срабатывает только когда пользователь навел курсор на слайдер
+        // и подвигал его
+        scalelessSlider.on('mouseleave touchend', (e) => {
+            controlIndicator($(e.currentTarget), 'hide');
+        })
+        if (!e.target.closest(`.${scalelessSlider[0].classList[0]}`)) {
+            controlIndicator($(e.currentTarget), 'hide');
+        }
+    })
 });
 
 rangeSlider.on('mousedown touchstart', (e) => {
     // Обрабатывает действия с слайдером
     controlSlider(e);
-})
-
-$('body').on('mouseup touchend', (e) => {
-    console.log('Отпустили кнопку мыши');
-    $('body').off('mousemove touchmove');
-    // Этот блок срабатывает только когда пользователь навел курсор на слайдер
-    // и подвигал его
-    scalelessSlider.on('mouseleave touchend', (e) => {
-        controlIndicator($(e.currentTarget), 'hide');
-    })
-    if (!e.target.closest(`.${scalelessSlider[0].classList[0]}`)) {
-        controlIndicator($(e.currentTarget), 'hide');
-    }
 })
 
 function controlSlider(e: any, hasIndicator: boolean = false) : void {
