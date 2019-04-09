@@ -1,0 +1,23 @@
+.submit-btn {
+    transform: translateY(0);
+    box-sizing: border-box;
+    padding: 10px 34px;
+    border: 0;
+    border-radius: 3px;
+    font-size: 12px;
+    font-family: 'Lato Black', sans-serif;
+    text-transform: uppercase;
+    color: #ffffff;
+    line-height: 100%;
+    letter-spacing: 0.6px;
+    text-align: center;
+    outline-color: transparent;
+    outline-style: none;
+    transition: transform 0.1s;
+    appearance: none;
+    -webkit-tap-highlight-color: transparent;
+    cursor: pointer;
+    &:active {
+        transform: translateY(1px);
+    }
+}

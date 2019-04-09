@@ -1,0 +1,18 @@
+mixin submit-btn(options)
+    //- Свойства options
+    //- @color - цвет кнопки (string)
+    //- @btnText - текст кнопки (не обязательно) (string)
+    - var btnBaseClass = 'submit-btn';
+    - var btnColor = '';
+    - var classList = '';
+    - var btnText = 'Submit'
+    //- Установим текст кнопки (если был передан свой текст)
+    if options.btnText 
+        - btnText = options.btnText;
+    //- Установим цвет кнопки
+    if options.color === 'green'
+        - btnColor = 'green';
+    else
+        - btnColor = 'orange';
+    - classList = `${btnBaseClass} ${btnBaseClass}--big volume-btn--${btnColor}`
+    button(type="submit" class=classList)= btnText
