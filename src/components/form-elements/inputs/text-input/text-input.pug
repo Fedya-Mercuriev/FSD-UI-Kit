@@ -25,11 +25,11 @@ mixin text-input(options)
     //- Если был передан кастомный плейсхолдер - присвоим его вместо шаблона плейсхолдера
     if options.customPlaceholder
         - placeholdertext = options.customPlaceholder;
-    if options.type === "text"
+    if options.type !== "textarea"
         div(class=`${inputBaseClass}-wrapper`)
             input(class=inputBaseClass type=options.type name=options.data value="" placeholder=placeholdertext autocomplete="off" required)
             div(class=`${notificationClassList}-wrapper`)
-                div(class=`${notificationClassList}-wrapper__notification-body ${notificationClassList}-wrapper__notification-body--error`)
+                div(class=`${notificationClassList}-wrapper__notification-body`)
                 span(class=`${notificationClassList}-wrapper__notification-text` data-correct=notificationsCorrect data-error=notificationsError)
     else
         - inputBaseClass = "textarea";
