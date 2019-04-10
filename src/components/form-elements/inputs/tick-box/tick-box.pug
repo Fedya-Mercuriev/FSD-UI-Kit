@@ -1,0 +1,31 @@
+mixin tick-box(options)
+    //- Cвойства options
+    //- @name - занчение для аттрибута name (String)
+    //- @value - значение для аттрибута value (String)
+    //- @labelText - текст для элемента label(не обязательно) (String)
+    //- @color - цвет чекбокса (String)
+    //- @isChecked - отмечен ли чекбокс (Boolean)
+    - var tickBoxBaseClass = 'tick-box';
+    - var labelText = '';
+    - var colorClass = 'green';
+    //- Установим цвет чекбокса
+    if options.color === 'orange'
+        - colorClass = 'orange';
+    //- Добавим текст для лейбла
+    if options.labelText 
+        - labelText = optios.labelText;
+    //- Отрисуем элемент
+    if options.isChecked === true
+        div(class=`${tickBoxBaseClass}-wrapper`)
+                label(class=`${tickBoxBaseClass}-label`)= labelText
+                    div(class=`${tickBoxBaseClass}-block ${tickBoxBaseClass}-block--${colorClass}`)
+                        if block
+                            block
+                        input(class=`${tickBoxBaseClass}-block__input` type="checkbox" name=options.name value=options.value checked)
+    else
+        div(class=`${tickBoxBaseClass}-wrapper`)
+                label(class=`${tickBoxBaseClass}-label`)= labelText
+                    div(class=`${tickBoxBaseClass}-block ${tickBoxBaseClass}-block--${colorClass}`)
+                        if block
+                            block
+                        input(class=`${tickBoxBaseClass}-block__input` type="checkbox" name=options.name value=options.value)

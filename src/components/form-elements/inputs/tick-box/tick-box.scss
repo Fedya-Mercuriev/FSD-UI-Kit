@@ -1,0 +1,62 @@
+.tick-box-wrapper {
+    width: 23px;
+    height: 23px;
+}
+
+.tick-box-block {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border-radius: 50%;
+    background-color: $light-grey-color;
+    cursor: pointer;
+    &::before {
+        content: '';
+        position: absolute;
+        z-index: 0;
+        display: block;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        transform-origin: center;
+        transform: scale(0);
+        transition: all 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
+    }
+    &:hover {
+        background-color: darken($light-grey-color, 5%);
+    }
+    &:hover {
+        background-color: darken($light-grey-color, 7%);
+    }
+    &--green {
+        &::before {
+            background-color: $green-color
+        }
+    }
+    &--orange {
+        &::before {
+            background-color: $orange-color
+        }
+    }
+    &--active {
+        &::before {
+            transform: scale(1);
+        }
+        & svg path {
+            fill: #ffffff;
+        }
+    }
+    & svg {
+        position: relative;
+        z-index: 10;
+    }
+    &__input {
+        position: absolute;
+        visibility: hidden;
+    }
+}
