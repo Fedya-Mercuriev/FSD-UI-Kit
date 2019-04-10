@@ -18,7 +18,7 @@ mixin toggle-btn(options)
         - toggleStatesText = options.text
     if options.isChecked === true
         div(class=`${toggleBtnBaseClass}-wrapper ${toggleBtnBaseClass}-wrapper--${colorClass}`)
-            label.toggle-btn-label
+            label(class='toggle-btn-label toggle-btn-label--active')
                 span.toggle-btn-label__label-text(data-active=toggleStatesText[0] data-inactive=toggleStatesText[1])= toggleStatesText[0]
                 input(type="checkbox" class=toggleBtnBaseClass name=options.data value=options.value checked)
     else
